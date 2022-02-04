@@ -27,7 +27,7 @@ public class UserDetails {
 
     @NotNull
     @Column("account_type")
-    private String accounType;
+    private String accountType;
 
     @NotNull
     private String password;
