@@ -8,6 +8,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,5 +32,11 @@ public class UserDetails {
 
     @NotNull
     private String password;
+
+    @NotNull
+    private Set<String> bookmarkedBusinesses;
+
+    @NotNull
+    private Set<String> bookmarkedItems;
 
 }

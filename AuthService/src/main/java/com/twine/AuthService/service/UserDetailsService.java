@@ -5,7 +5,9 @@ import com.twine.AuthService.repository.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -67,5 +69,27 @@ public class UserDetailsService {
         if (!optionalUser.isPresent())
             throw new UserNotFoundException("User Record with id " + id + " is not available");*/
         userDetailsRepo.deleteById(email);
+    }
+
+    //bookmarkBusiness
+    public UserDetails bookmarkBusiness(String email, String businessId){
+        UserDetails userDetail = getUserByEmail(email);
+        Set<String> bookmarks ;
+        bookmarks = userDetail.getBookmarkedBusinesses();
+        if(bookmarks==null) bookmarks = new HashSet<>() ;
+        bookmarks.add(businessId);
+        userDetail.setBookmarkedBusinesses(bookmarks);
+        return userDetailsRepo.save(userDetail);
+    }
+
+    //bookmarkItem
+    public UserDetails bookmarkProducts(String email, String id){
+        UserDetails userDetail = getUserByEmail(email);
+        Set<String> bookmarks ;
+        bookmarks = userDetail.getBookmarkedItems();
+        if(bookmarks==null) bookmarks = new HashSet<>() ;
+        bookmarks.add(id);
+        userDetail.setBookmarkedItems(bookmarks);
+        return userDetailsRepo.save(userDetail);
     }
 }

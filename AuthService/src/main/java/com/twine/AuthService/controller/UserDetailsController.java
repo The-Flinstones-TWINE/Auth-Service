@@ -2,9 +2,11 @@ package com.twine.AuthService.controller;
 
 
 import com.twine.AuthService.entities.UserDetails;
+import com.twine.AuthService.exception.UserNotFoundException;
 import com.twine.AuthService.service.UserDetailsService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,6 +68,25 @@ public class UserDetailsController {
 
         userDetailsService.deleteUserByEmail(email);
         return "User with email " + email + " has been deleted!";
+    }
+    //bookmark businesses
+    @PutMapping("/user/business-bookmark/{email}")
+    public UserDetails bookmarkBusiness(@PathVariable("email") String email, @RequestParam String businessId){
+        try {
+            return userDetailsService.bookmarkBusiness(email,businessId);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    //bookmark items
+    @PutMapping("/user/item-bookmark/{email}")
+    public UserDetails bookmarkProducts(@PathVariable("email") String email, @RequestParam String id){
+        try {
+            return userDetailsService.bookmarkProducts(email,id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
 
