@@ -5,6 +5,7 @@ import com.twine.AuthService.repository.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,16 +17,14 @@ public class UserDetailsService {
     private UserDetails userDetails= new UserDetails();
 
     //----------------------------Authenticate by Email-----------------------------------------------
-    public Boolean authenticatedUserByEmail(String email, String password){
+    public UserDetails authenticatedUserByEmail(String email, String password){
 
-        Boolean aunthenticated = false;
         userDetails = userDetailsRepo.findByUseremail(email);
         if(userDetails.getUseremail().equals(email) && userDetails.getPassword().equals(password)){
-            aunthenticated = true;
+            return userDetails;
         }
-        else aunthenticated = false;
+        throw new RuntimeException();
 
-        return aunthenticated;
     }
 
     //----------------------------Create user-----------------------------------------------------
@@ -104,5 +103,15 @@ public class UserDetailsService {
         UserDetails userDetail = getUserByEmail(email);
         if(!userDetail.getBookmarkedItems().isEmpty() && userDetail.getBookmarkedItems().contains(id) ) return true;
         return false;
+    }
+
+    //Get all businesses bookmarked by email id
+    public Set<String> getAllBookmarkedBusiness(String email){
+        Set<String> bookmarkedBusiness;
+        UserDetails userDetail = getUserByEmail(email);
+
+        bookmarkedBusiness = userDetail.getBookmarkedBusinesses();
+
+        return bookmarkedBusiness;
     }
 }

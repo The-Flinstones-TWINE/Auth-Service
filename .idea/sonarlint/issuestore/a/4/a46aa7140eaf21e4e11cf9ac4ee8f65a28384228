@@ -1,0 +1,11 @@
+
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¯åÕøÿÿÿÿ
+Q	java:S1258"<This block of commented-out lines of code should be removed.(³ò­’
+Q	java:S125C"<This block of commented-out lines of code should be removed.(³ò­’
+\
+java:S1126b"AReplace this if-then-else statement by a single return statement.(ãúÈ¯úÿÿÿÿ
+W
+java:S1126h"AReplace this if-then-else statement by a single return statement.(òíõè
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(•îÂ¯

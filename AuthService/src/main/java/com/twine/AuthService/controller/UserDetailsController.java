@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/twine-auth")
@@ -21,7 +22,7 @@ public class UserDetailsController {
 
     //-------------------------------Authenticate User by email------------------------------
     @GetMapping(value = "/user/{email}/{password}")
-    public Boolean authenticateUserByEmail(@PathVariable("email") String email, @PathVariable("password") String password) {
+    public UserDetails authenticateUserByEmail(@PathVariable("email") String email, @PathVariable("password") String password) {
 
         return userDetailsService.authenticatedUserByEmail(email, password);
     }
@@ -102,6 +103,16 @@ public class UserDetailsController {
     public Boolean isBusinessBookmarked(@PathVariable("email") String email, @RequestParam String id){
         try {
             return userDetailsService.isBusinessBookmarked(email,id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    //Get all businesses bookmarked by email id
+    @GetMapping("/user/business-bookmarked/{email}")
+    public Set<String> getAllBookmarkedBusiness(@PathVariable("email") String email){
+        try {
+            return userDetailsService.getAllBookmarkedBusiness(email);
         } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
         }
