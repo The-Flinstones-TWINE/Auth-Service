@@ -92,4 +92,17 @@ public class UserDetailsService {
         userDetail.setBookmarkedItems(bookmarks);
         return userDetailsRepo.save(userDetail);
     }
+
+    //isBookmarked
+    public Boolean isBusinessBookmarked(String email, String id){
+        UserDetails userDetail = getUserByEmail(email);
+        if(!userDetail.getBookmarkedBusinesses().isEmpty() && userDetail.getBookmarkedBusinesses().contains(id) ) return true;
+        return false;
+    }
+    //isBookmarked
+    public Boolean isProductBookmarked(String email, String id){
+        UserDetails userDetail = getUserByEmail(email);
+        if(!userDetail.getBookmarkedItems().isEmpty() && userDetail.getBookmarkedItems().contains(id) ) return true;
+        return false;
+    }
 }

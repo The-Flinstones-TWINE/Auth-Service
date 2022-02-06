@@ -1,6 +1,5 @@
 package com.twine.AuthService.controller;
 
-
 import com.twine.AuthService.entities.UserDetails;
 import com.twine.AuthService.exception.UserNotFoundException;
 import com.twine.AuthService.service.UserDetailsService;
@@ -84,6 +83,25 @@ public class UserDetailsController {
     public UserDetails bookmarkProducts(@PathVariable("email") String email, @RequestParam String id){
         try {
             return userDetailsService.bookmarkProducts(email,id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    //is item bookmark ed
+    @GetMapping("/user/item-bookmark-check/{email}")
+    public Boolean isProductBookmarked(@PathVariable("email") String email, @RequestParam String id){
+        try {
+            return userDetailsService.isProductBookmarked(email,id);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+    //is business bookmarkes
+    @GetMapping("/user/business-bookmark-check/{email}")
+    public Boolean isBusinessBookmarked(@PathVariable("email") String email, @RequestParam String id){
+        try {
+            return userDetailsService.isBusinessBookmarked(email,id);
         } catch (RuntimeException e) {
             throw new RuntimeException(e.getMessage());
         }
